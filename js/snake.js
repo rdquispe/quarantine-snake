@@ -46,7 +46,6 @@ function Snake() {
             for (var i = 0; i < this.tail.length - 1; i++) {
                 this.tail[i] = this.tail[i + 1];
             }
-
         }
         this.tail[this.total - 1] = createVector(this.x, this.y);
 
@@ -55,8 +54,6 @@ function Snake() {
 
         this.x = constrain(this.x, 0, playfield - scl);
         this.y = constrain(this.y, 0, playfield - scl);
-
-
     }
 
     this.show = function () {

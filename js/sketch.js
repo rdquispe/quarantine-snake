@@ -1,5 +1,5 @@
 // Global Variables
-let s;
+let snake;
 let scl = 20;
 let food;
 let playfield = 600;
@@ -7,7 +7,7 @@ let playfield = 600;
 function setup() {
     createCanvas(playfield, 640);
     background(51);
-    s = new Snake();
+    snake = new Snake();
     frameRate(10);
     pickLocation();
 }
@@ -17,12 +17,12 @@ function setup() {
 function draw() {
     background(51);
     scoreboard();
-    if (s.eat(food)) {
+    if (snake.eat(food)) {
         pickLocation();
     }
-    s.death();
-    s.update();
-    s.show();
+    snake.death();
+    snake.update();
+    snake.show();
 
     fill(255, 0, 100);
     rect(food.x, food.y, scl, scl);
@@ -36,8 +36,8 @@ function pickLocation() {
     food = createVector(floor(random(cols)), floor(random(rows)));
     food.mult(scl);
 
-    for (var i = 0; i < s.tail.length; i++) {
-        var pos = s.tail[i];
+    for (var i = 0; i < snake.tail.length; i++) {
+        var pos = snake.tail[i];
         var d = dist(food.x, food.y, pos.x, pos.y);
         if (d < 1) {
             pickLocation();
@@ -55,20 +55,32 @@ function scoreboard() {
     textSize(18);
     text("Score: ", 10, 625);
     text("Highscore: ", 450, 625)
-    text(s.score, 70, 625);
-    text(s.highscore, 540, 625)
+    text(snake.score, 70, 625);
+    text(snake.highscore, 540, 625)
 }
 
 // Control
 
 function keyPressed() {
     if (keyCode === UP_ARROW) {
-        s.dir(0, -1);
+        if (snake.yspeed === 1) {
+            return;
+        }
+        snake.dir(0, -1);
     } else if (keyCode === DOWN_ARROW) {
-        s.dir(0, 1);
+        if (snake.yspeed === -1) {
+            return;
+        }
+        snake.dir(0, 1);
     } else if (keyCode === RIGHT_ARROW) {
-        s.dir(1, 0);
+        if (snake.xspeed === -1) {
+            return;
+        }
+        snake.dir(1, 0);
     } else if (keyCode === LEFT_ARROW) {
-        s.dir(-1, 0);
+        if (snake.xspeed === 1) {
+            return;
+        }
+        snake.dir(-1, 0);
     }
 }
