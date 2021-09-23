@@ -1,4 +1,4 @@
 # quarantine-snake
 
-![image](/img/demo.gif)
+![Rodrigo Diego Quispe Laura](/img/demo.gif)
 
